@@ -17,6 +17,7 @@ struct Athlete {
 
 typedef struct Athlete Athlete;
 
+
 int from_str_to_int(char *x);
 
 float from_str_to_float(char *x);
@@ -25,15 +26,20 @@ void from_str_to_int_mas(char *x, int *mas);
 
 Athlete *fill_struct(char *str);
 
+void print_line();
+
+void print_user(Athlete *user);
+
+void pprint(Athlete **users, int n);
+
 void my_swap(Athlete *a, Athlete *b);
 
 void sort_users(Athlete **users, int n, int param);
 
+char* m_strlwr(const char* str);
+
 void find_users(Athlete **users, int n, int param);
 
-void add_user(Athlete **users, int n);
-
-void pprint(Athlete **users, int n);
 
 int main() {
     char filename[128];
@@ -192,32 +198,6 @@ Athlete *fill_struct(char *str) {
     return user;
 }
 
-void my_swap(Athlete *a, Athlete *b) {
-    Athlete c = *a;
-    *a = *b;
-    *b = c;
-}
-
-void sort_users(Athlete **users, int n, int param) {
-    for (int i = 0; i < n; ++i) {
-        for (int j = i; j < n; ++j) {
-            if (param == 1 && users[i]->age > users[j]->age) {
-                my_swap(users[i], users[j]);
-            } else if (param == 2 && users[i]->weight > users[j]->weight) {
-                my_swap(users[i], users[j]);
-            } else if (param == 3 && users[i]->height > users[j]->height) {
-                my_swap(users[i], users[j]);
-            } else if (param == 4 && users[i]->index > users[j]->index) {
-                my_swap(users[i], users[j]);
-            }
-        }
-    }
-}
-
-void find_users(Athlete **users, int n, int param) {
-
-}
-
 void print_line() {
     printf("+");
     for (int i = 0; i < NAME_LEN + 2; printf("-"), ++i);  /* name */
@@ -241,28 +221,95 @@ void print_line() {
     printf("\n");
 }
 
+void print_user(Athlete *user) {
+    printf("| %s ", user->name);
+    for (int j = 0; j < NAME_LEN - strlen(user->name); printf(" "), j++);
+    printf("| %s ", user->university);
+    for (int j = 0; j < 10 - strlen(user->university); printf(" "), j++);
+    printf("| %i  | %0.1f  ", user->age, user->weight);
+    if (user->weight < 100) printf(" ");
+    printf("| %i    ", user->height);
+    printf("| %i  ", user->result[0]);
+    if (user->result[0] < 100) printf(" ");
+    if (user->result[0] < 10) printf(" ");
+    printf("| %i  ", user->result[1]);
+    if (user->result[1] < 100) printf(" ");
+    if (user->result[1] < 10) printf(" ");
+    printf("| %i  ", user->result[2]);
+    if (user->result[2] < 100) printf(" ");
+    if (user->result[2] < 10) printf(" ");
+    printf("| %0.3f |\n", user->index);
+}
+
 void pprint(Athlete **users, int n) {
     print_line();
     printf("| Name                 | University | Age | Weight | Height | Res1 | Res2 | Res3 | Index |\n");
     print_line();
     for (int i = 0; i < n; ++i) {
-        printf("| %s ", users[i]->name);
-        for (int j = 0; j < NAME_LEN - strlen(users[i]->name); printf(" "), j++);
-        printf("| %s ", users[i]->university);
-        for (int j = 0; j < 10 - strlen(users[i]->university); printf(" "), j++);
-        printf("| %i  | %0.1f  ", users[i]->age, users[i]->weight);
-        if (users[i]->weight < 100) printf(" ");
-        printf("| %i    ", users[i]->height);
-        printf("| %i  ", users[i]->result[0]);
-        if (users[i]->result[0] < 100) printf(" ");
-        if (users[i]->result[0] < 10) printf(" ");
-        printf("| %i  ", users[i]->result[1]);
-        if (users[i]->result[1] < 100) printf(" ");
-        if (users[i]->result[1] < 10) printf(" ");
-        printf("| %i  ", users[i]->result[2]);
-        if (users[i]->result[2] < 100) printf(" ");
-        if (users[i]->result[2] < 10) printf(" ");
-        printf("| %0.3f |\n", users[i]->index);
+        print_user(users[i]);
     }
     print_line();
+}
+
+void my_swap(Athlete *a, Athlete *b) {
+    Athlete c = *a;
+    *a = *b;
+    *b = c;
+}
+
+void sort_users(Athlete **users, int n, int param) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = i; j < n; ++j) {
+            if (param == 1 && users[i]->age > users[j]->age) {
+                my_swap(users[i], users[j]);
+            } else if (param == 2 && users[i]->weight > users[j]->weight) {
+                my_swap(users[i], users[j]);
+            } else if (param == 3 && users[i]->height > users[j]->height) {
+                my_swap(users[i], users[j]);
+            } else if (param == 4 && users[i]->index > users[j]->index) {
+                my_swap(users[i], users[j]);
+            }
+        }
+    }
+}
+
+char* m_strlwr(const char* str) {
+  size_t len = strlen(str);
+  char* new_str = malloc(len + 1);
+  if (new_str == NULL) {
+    return NULL;
+  }
+  strcpy(new_str, str);
+  strlwr(new_str);
+  return new_str;
+}
+
+void find_users(Athlete **users, int n, int param) {
+    char x[128];
+    char *str;
+    int fl = 0;
+
+    printf("Enter the search string:\n");
+    getchar();
+    fgets(x, sizeof(x), stdin);
+    x[strlen(x) - 1] = '\0';
+    strlwr(x);
+    for (int i = 0; i < n; ++i) {
+        if (param == 1) str = users[i]->name;
+        else str = users[i]->university;
+        if (strstr(m_strlwr(str), x) != NULL) {
+            if (fl == 0) {
+                print_line();
+                printf("| Name                 | University | Age | Weight | Height | Res1 | Res2 | Res3 | Index |\n");
+                print_line();
+                fl = 1;
+            }
+            print_user(users[i]);
+        }
+    }
+    if (fl == 0) {
+        printf("No matches found!\n");
+    } else {
+        print_line();
+    }
 }
