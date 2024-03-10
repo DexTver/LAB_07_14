@@ -3,6 +3,7 @@
 #include <string.h>
 
 #define NAME_LEN 20
+#define MAX_USERS 100
 
 struct Athlete {
     char *name;         /* имя */
@@ -54,7 +55,7 @@ int main() {
     scanf("%i", &n);
     getchar();
 
-    char text[n][1024];
+    char text[MAX_USERS][1024];
     users = (Athlete **) malloc(n * sizeof(Athlete *));
     if (users != NULL) {
         for (int i = 0; i < n; ++i) {
@@ -66,14 +67,17 @@ int main() {
 
     printf("The file has successfully been processed!\n"
            "To display the data, enter the command \"!print\"\n"
-           "");
+           "To sort the data, enter the command \"!sort\"\n"
+           "To add new data, enter the command \"!add\"\n"
+           "To find users, enter the command \"!find\"\n"
+           "To end the program, enter the command \"!end\"\n");
 
     do {
         scanf("%s", str);
-        if (strcasecmp(str, "!print") == 0) {
+        if (strcasecmp(str, "!end") == 0) {
+            printf("Goodbye!\n");
+        } else if (strcasecmp(str, "!print") == 0) {
             pprint(users, n);
-        } else if (strcasecmp(str, "!end") == 0) {
-            printf("Goodbye!");
         } else if (strcasecmp(str, "!find") == 0) {
             printf("Select a field to find by:\n"
                    "1 = name\n"
@@ -81,7 +85,7 @@ int main() {
                    "Enter only one number!\n");
             scanf("%i", &ch);
             if (ch < 1 || 2 < ch) {
-                printf("Invalid command!");
+                printf("Invalid command!\n");
             } else {
                 find_users(users, n, ch);
             }
@@ -94,14 +98,24 @@ int main() {
                    "Enter only one number!\n");
             scanf("%i", &ch);
             if (ch < 1 || 4 < ch) {
-                printf("Invalid command!");
+                printf("Invalid command!\n");
             } else {
                 sort_users(users, n, ch);
+                printf("The data has been successfully sorted!\n");
             }
-        } else if (strcasecmp(str, "!add")) {
-            printf("Enter data of user in format:\n"
+        } else if (strcasecmp(str, "!add") == 0) {
+            printf("Enter data of the athlete in format:\n"
                    "name;university;age;weight;height;result1,result2,result3\n");
-            add_user(users, n);
+            ++n;
+            users = (Athlete **) realloc(users, (n) * sizeof(Athlete *));
+            if (users != NULL) {
+                getchar();
+                fgets(text[n - 1], sizeof(text[n - 1]), stdin);
+                users[n - 1] = fill_struct(text[n - 1]);
+                printf("The data has been successfully added!\n");
+            } else {
+                printf("Something went wrong!");
+            }
         } else {
             printf("Unknown command!\n");
         }
@@ -187,13 +201,13 @@ void my_swap(Athlete *a, Athlete *b) {
 void sort_users(Athlete **users, int n, int param) {
     for (int i = 0; i < n; ++i) {
         for (int j = i; j < n; ++j) {
-            if (param == 1 && users[i]->age < users[j]->age) {
+            if (param == 1 && users[i]->age > users[j]->age) {
                 my_swap(users[i], users[j]);
-            } else if (param == 2 && users[i]->weight < users[j]->weight) {
+            } else if (param == 2 && users[i]->weight > users[j]->weight) {
                 my_swap(users[i], users[j]);
-            } else if (param == 3 && users[i]->height < users[j]->height) {
+            } else if (param == 3 && users[i]->height > users[j]->height) {
                 my_swap(users[i], users[j]);
-            } else if (param == 4 && users[i]->index < users[j]->index) {
+            } else if (param == 4 && users[i]->index > users[j]->index) {
                 my_swap(users[i], users[j]);
             }
         }
@@ -202,15 +216,6 @@ void sort_users(Athlete **users, int n, int param) {
 
 void find_users(Athlete **users, int n, int param) {
 
-}
-
-void add_user(Athlete **users, int n) {
-    char text[1024];
-    users = (Athlete **) realloc(users, (n) * sizeof(Athlete *));
-    if (users != NULL) {
-        scanf("%s", text);
-        users[n - 1] = fill_struct(text);
-    }
 }
 
 void print_line() {
