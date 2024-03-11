@@ -51,7 +51,8 @@ int main() {
     scanf("%s", filename);
     f = fopen(filename, "r");
     while (f == NULL) {
-        printf("Something went wrong! Perhaps such a file does not exist.\n"
+        printf("Something went wrong!\n"
+               "Perhaps such a file does not exist.\n"
                "Please enter the file name again:\n");
         scanf("%s", filename);
         f = fopen(filename, "r");
@@ -82,11 +83,11 @@ int main() {
 
     do {
         scanf("%s", str);
-        if (strcasecmp(str, "!end") == 0) {
+        if (!strcmp(str, "!end")) {
             printf("Goodbye!\n");
-        } else if (strcasecmp(str, "!print") == 0) {
+        } else if (!strcmp(str, "!print")) {
             pprint(users, n);
-        } else if (strcasecmp(str, "!find") == 0) {
+        } else if (!strcmp(str, "!find")) {
             printf("Select a field to find by:\n"
                    "1 = name\n"
                    "2 = university\n"
@@ -97,7 +98,7 @@ int main() {
             } else {
                 find_users(users, n, ch);
             }
-        } else if (strcasecmp(str, "!sort") == 0) {
+        } else if (!strcmp(str, "!sort")) {
             printf("Select a field to sort by:\n"
                    "1 = age\n"
                    "2 = weight\n"
@@ -112,7 +113,7 @@ int main() {
                 printf("The data has been successfully sorted!\n");
                 pprint(users, n);
             }
-        } else if (strcasecmp(str, "!add") == 0) {
+        } else if (!strcmp(str, "!add")) {
             printf("Enter data of the athlete in format:\n"
                    "name;university;age;weight;height;result1,result2,result3\n");
             ++n;
@@ -128,7 +129,7 @@ int main() {
         } else {
             printf("Unknown command!\n");
         }
-    } while (strcasecmp(str, "!end") != 0);
+    } while (strcmp(str, "!end"));
 
     free(users);
     return 0;
@@ -197,7 +198,9 @@ Athlete *fill_struct(char *str) {
         user->weight = from_str_to_float(pole[3]);
         user->height = from_str_to_int(pole[4]);
         from_str_to_int_mas(word, user->result);
-        user->index = (float) (user->result[0] + user->result[1] + user->result[2]) / user->weight;
+        user->index =
+                (float) (user->result[0] + user->result[1] + user->result[2]) /
+                user->weight;
     }
     return user;
 }
@@ -205,19 +208,23 @@ Athlete *fill_struct(char *str) {
 void print_line() {
     printf("+");
     for (int i = 0; i < 22; printf("-"), ++i);
-    printf("+------------+-----+--------+--------+------+------+------+-------+\n");
+    printf("+------------+-----+--------+--------"
+           "+------+------+------+-------+\n");
 }
 
 void print_user(Athlete *user) {
-    printf("| %-20s | %-10s | %-3i | %0.1f  ", user->name, user->university, user->age, user->weight);
+    printf("| %-20s | %-10s | %-3i | %0.1f  ", user->name, user->university,
+           user->age, user->weight);
     if (user->weight < 100) printf(" ");
-    printf("| %-6i | %-4i | %-4i | %-4i ", user->height, user->result[0], user->result[1], user->result[2]);
+    printf("| %-6i | %-4i | %-4i | %-4i ", user->height, user->result[0],
+           user->result[1], user->result[2]);
     printf("| %0.3f |\n", user->index);
 }
 
 void pprint(Athlete **users, int n) {
     print_line();
-    printf("| Name                 | University | Age | Weight | Height | Res1 | Res2 | Res3 | Index |\n");
+    printf("| Name                 | University | Age | Weight | Height "
+           "| Res1 | Res2 | Res3 | Index |\n");
     print_line();
     for (int i = 0; i < n; ++i) {
         print_user(users[i]);
@@ -275,7 +282,8 @@ void find_users(Athlete **users, int n, int param) {
         if (strstr(m_strlwr(str), x) != NULL) {
             if (fl == 0) {
                 print_line();
-                printf("| Name                 | University | Age | Weight | Height | Res1 | Res2 | Res3 | Index |\n");
+                printf("| Name                 | University | Age | Weight "
+                       "| Height | Res1 | Res2 | Res3 | Index |\n");
                 print_line();
                 fl = 1;
             }
