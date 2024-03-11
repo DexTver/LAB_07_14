@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NAME_LEN 20
 #define MAX_USERS 100
 
 struct Athlete {
@@ -52,7 +51,8 @@ int main() {
     scanf("%s", filename);
     f = fopen(filename, "r");
     while (f == NULL) {
-        printf("Something went wrong! Perhaps such a file does not exist.\nPlease enter the file name again:\n");
+        printf("Something went wrong! Perhaps such a file does not exist.\n"
+               "Please enter the file name again:\n");
         scanf("%s", filename);
         f = fopen(filename, "r");
     }
@@ -110,6 +110,7 @@ int main() {
             } else {
                 sort_users(users, n, ch);
                 printf("The data has been successfully sorted!\n");
+                pprint(users, n);
             }
         } else if (strcasecmp(str, "!add") == 0) {
             printf("Enter data of the athlete in format:\n"
@@ -203,44 +204,14 @@ Athlete *fill_struct(char *str) {
 
 void print_line() {
     printf("+");
-    for (int i = 0; i < NAME_LEN + 2; printf("-"), ++i);  /* name */
-    printf("+");
-    for (int i = 0; i < 12; printf("-"), ++i);  /* university */
-    printf("+");
-    for (int i = 0; i < 5; printf("-"), ++i);   /* age */
-    printf("+");
-    for (int i = 0; i < 8; printf("-"), ++i);   /* weight */
-    printf("+");
-    for (int i = 0; i < 8; printf("-"), ++i);   /* height */
-    printf("+");
-    for (int i = 0; i < 6; printf("-"), ++i);   /* res1 */
-    printf("+");
-    for (int i = 0; i < 6; printf("-"), ++i);   /* res2 */
-    printf("+");
-    for (int i = 0; i < 6; printf("-"), ++i);   /* res3 */
-    printf("+");
-    for (int i = 0; i < 7; printf("-"), ++i);   /* index */
-    printf("+");
-    printf("\n");
+    for (int i = 0; i < 22; printf("-"), ++i);
+    printf("+------------+-----+--------+--------+------+------+------+-------+\n");
 }
 
 void print_user(Athlete *user) {
-    printf("| %s ", user->name);
-    for (int j = 0; j < NAME_LEN - strlen(user->name); printf(" "), j++);
-    printf("| %s ", user->university);
-    for (int j = 0; j < 10 - strlen(user->university); printf(" "), j++);
-    printf("| %i  | %0.1f  ", user->age, user->weight);
+    printf("| %-20s | %-10s | %-3i | %0.1f  ", user->name, user->university, user->age, user->weight);
     if (user->weight < 100) printf(" ");
-    printf("| %i    ", user->height);
-    printf("| %i  ", user->result[0]);
-    if (user->result[0] < 100) printf(" ");
-    if (user->result[0] < 10) printf(" ");
-    printf("| %i  ", user->result[1]);
-    if (user->result[1] < 100) printf(" ");
-    if (user->result[1] < 10) printf(" ");
-    printf("| %i  ", user->result[2]);
-    if (user->result[2] < 100) printf(" ");
-    if (user->result[2] < 10) printf(" ");
+    printf("| %-6i | %-4i | %-4i | %-4i ", user->height, user->result[0], user->result[1], user->result[2]);
     printf("| %0.3f |\n", user->index);
 }
 
