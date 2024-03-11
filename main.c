@@ -36,7 +36,7 @@ void my_swap(Athlete *a, Athlete *b);
 
 void sort_users(Athlete **users, int n, int param);
 
-char* m_strlwr(const char* str);
+char *m_strlwr(const char *str);
 
 void find_users(Athlete **users, int n, int param);
 
@@ -45,7 +45,7 @@ int main() {
     char filename[128];
     FILE *f;
     int n, ch;
-    Athlete **users = NULL;
+    Athlete **users;
     char str[128];
 
     printf("Please enter the file name:\n");
@@ -69,10 +69,12 @@ int main() {
             users[i] = fill_struct(text[i]);
         }
         fclose(f);
+        printf("The file has successfully been processed!\n");
+    } else {
+        printf("Memory error!");
     }
 
-    printf("The file has successfully been processed!\n"
-           "To display the data, enter the command \"!print\"\n"
+    printf("To display the data, enter the command \"!print\"\n"
            "To sort the data, enter the command \"!sort\"\n"
            "To add new data, enter the command \"!add\"\n"
            "To find users, enter the command \"!find\"\n"
@@ -133,6 +135,7 @@ int main() {
 
 int from_str_to_int(char *x) {
     int ans = 0;
+
     while (*x != '\0') {
         ans = ans * 10 + (*x - '0');
         ++x;
@@ -142,6 +145,7 @@ int from_str_to_int(char *x) {
 
 float from_str_to_float(char *x) {
     float ans = 0, a = 10, b = 1;
+
     while (*x != '\0') {
         if (*x == '.' || *x == ',') {
             a = 1;
@@ -157,6 +161,7 @@ float from_str_to_float(char *x) {
 
 void from_str_to_int_mas(char *x, int *mas) {
     int ind = 0, j = 0;
+
     while (x[j] != '\0') {
         if (x[j] == ';') {
             x[j] = '\0';
@@ -170,12 +175,11 @@ void from_str_to_int_mas(char *x, int *mas) {
 }
 
 Athlete *fill_struct(char *str) {
-    Athlete *user = NULL;
-    char *word;
-    int ind, tt;
+    Athlete *user;
+    char *word = str;
+    int ind = 0, tt;
     char *pole[5];
-    ind = 0;
-    word = str;
+
     user = (Athlete *) malloc(sizeof(Athlete));
     if (user != NULL) {
         for (tt = 0; str[tt] != '\n' && str[tt] != '\0'; ++tt) {
@@ -186,7 +190,6 @@ Athlete *fill_struct(char *str) {
             }
         }
         str[tt] = '\0';
-
         user->name = pole[0];
         user->university = pole[1];
         user->age = from_str_to_int(pole[2]);
@@ -253,6 +256,7 @@ void pprint(Athlete **users, int n) {
 
 void my_swap(Athlete *a, Athlete *b) {
     Athlete c = *a;
+
     *a = *b;
     *b = c;
 }
@@ -273,15 +277,15 @@ void sort_users(Athlete **users, int n, int param) {
     }
 }
 
-char* m_strlwr(const char* str) {
-  size_t len = strlen(str);
-  char* new_str = malloc(len + 1);
-  if (new_str == NULL) {
-    return NULL;
-  }
-  strcpy(new_str, str);
-  strlwr(new_str);
-  return new_str;
+char *m_strlwr(const char *str) {
+    size_t len = strlen(str);
+    char *new_str = malloc(len + 1);
+
+    if (new_str != NULL) {
+        strcpy(new_str, str);
+        strlwr(new_str);
+    }
+    return new_str;
 }
 
 void find_users(Athlete **users, int n, int param) {
@@ -293,7 +297,7 @@ void find_users(Athlete **users, int n, int param) {
     getchar();
     fgets(x, sizeof(x), stdin);
     x[strlen(x) - 1] = '\0';
-    strlwr(x);
+    strlwr(x);  /* приводит x к нижнему регистру */
     for (int i = 0; i < n; ++i) {
         if (param == 1) str = users[i]->name;
         else str = users[i]->university;
