@@ -58,7 +58,7 @@ int main() {
         f = fopen(filename, "r");
     }
 
-    printf("Please enter count of lines in file:\n");
+    printf("Please enter count of lines in file (max %i):\n", MAX_USERS);
     scanf("%i", &n);
     getchar();
 
@@ -66,8 +66,11 @@ int main() {
     users = (Athlete **) malloc(n * sizeof(Athlete *));
     if (users != NULL) {
         for (int i = 0; i < n; ++i) {
-            fgets(text[i], sizeof(text[i]), f);
-            users[i] = fill_struct(text[i]);
+            if (fgets(text[i], sizeof(text[i]), f)) {
+                users[i] = fill_struct(text[i]);
+            } else {
+                n = i;
+            }
         }
         fclose(f);
         printf("The file has successfully been processed!\n");
@@ -76,9 +79,9 @@ int main() {
     }
 
     printf("To display the data, enter the command \"!print\"\n"
+           "To find users, enter the command \"!find\"\n"
            "To sort the data, enter the command \"!sort\"\n"
            "To add new data, enter the command \"!add\"\n"
-           "To find users, enter the command \"!find\"\n"
            "To end the program, enter the command \"!end\"\n");
 
     do {
