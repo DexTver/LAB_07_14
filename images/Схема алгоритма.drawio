@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-03-13T18:46:43.815Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="NtlGh5aH6cGQIn3eQEym" version="23.1.6" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2024-03-13T18:49:09.677Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="YrVg6SLxR5glRRUVp7ep" version="23.1.6" type="github" pages="5">
   <diagram name="Main" id="VdGe19wnGQsSNGawRBf9">
     <mxGraphModel dx="1363" dy="797" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -1556,7 +1556,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="NgEMiFsnov4AbUdKnTex" name="find">
-    <mxGraphModel dx="795" dy="465" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="954" dy="558" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1828,6 +1828,57 @@
         </mxCell>
         <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-29" value="Да" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="150" y="795" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-30" value="m_strlwr()&lt;br&gt;Начало" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="200" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-31" value="new_str = str" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="100" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-32" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Привести new_str к нижнему регистру&lt;/font&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;spacingLeft=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="140" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-33" value="Вернуть new_str" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="200" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-34" value="Конец" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="200" y="240" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-35" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="rvR1ITcCYZLt_3Q2Rvl4-31" target="rvR1ITcCYZLt_3Q2Rvl4-30">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="370" y="170" as="sourcePoint" />
+            <mxPoint x="370" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-36" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="rvR1ITcCYZLt_3Q2Rvl4-32" target="rvR1ITcCYZLt_3Q2Rvl4-31">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="350" y="190" as="sourcePoint" />
+            <mxPoint x="350" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-37" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="rvR1ITcCYZLt_3Q2Rvl4-33" target="rvR1ITcCYZLt_3Q2Rvl4-32">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="320" y="230" as="sourcePoint" />
+            <mxPoint x="320" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-38" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="rvR1ITcCYZLt_3Q2Rvl4-34" target="rvR1ITcCYZLt_3Q2Rvl4-33">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="320" y="250" as="sourcePoint" />
+            <mxPoint x="320" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-39" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="180" y="300" as="sourcePoint" />
+            <mxPoint x="180" y="30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rvR1ITcCYZLt_3Q2Rvl4-40" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="180" y="300" as="sourcePoint" />
+            <mxPoint x="610" y="300" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
